@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-initial-rooms-schema
+      author: Christian
+      changes:
+        - createTable:
+            tableName: rooms
+            columns:
+              - column:
+                  name: roomNumber
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: roomType
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: hasMiniBar
+                  type: boolean
+                  constraints:
+                    nullable: false
+              

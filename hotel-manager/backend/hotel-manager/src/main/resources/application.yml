@@ -1,0 +1,34 @@
+server:
+  port: 8081
+
+logging:
+  level:
+    org.hibernate.sql: debug
+    org.hibernate.type: trace
+
+spring:
+  profiles:
+    active: local
+  liquibase:
+    change-log: db.changelog/master.yml
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: validate
+        show_sql: true
+        use_sql_comments: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    topic: 
+      name: hotel-manager
+
+rest:
+  cors:
+    allowed-origins: 'http://localhost:4200'

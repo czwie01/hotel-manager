@@ -1,0 +1,25 @@
+== Architektur
+
+=== Backend
+
+Das Projekt wird nach dem Prinzip der https://herbertograca.com/2017/11/16/explicit-architecture-01-ddd-hexagonal-onion-clean-cqrs-how-i-put-it-all-together/[hexagonalen Architektur] umgesetzt.
+Im besten Fall findet die Entwicklung anwendungsfall-getrieben statt.
+Die folgende Abbildung zeigt ein Beispiel.
+
+image:readme/backend-hexagon.png[]
+
+==== Room-Rest-Adapter
+
+Dieser https://github.com/czwie01/hotel-manager/blob/master/backend/src/main/java/hotelmanager/rooms/adapters/rest/RoomRestAdapter.java[Adapter] stellt eine RESTlike-Schnittstelle nach außen bereit und nutzt die Anwendungsfälle, die durch den Domänenkern bereitgestellt werden.
+RESTLike, weil zunächst auf den Einsatz eine HyperMedia-API verzichtet wird.
+
+==== Room-Persistence-Adapter
+
+Der https://github.com/czwie01/hotel-manager/blob/master/backend/src/main/java/hotelmanager/rooms/adapters/persistence/RoomPersistenceAdapter.java[Persistence-Adapter] implementiert die durch den Domänenkern benötigten Operationen zur Persistenz der https://martinfowler.com/bliki/DDD_Aggregate.html[Aggregate].
+
+==== Room create
+
+Die https://github.com/czwie01/hotel-manager/blob/master/backend/src/main/java/hotelmanager/rooms/application/driving/CreateRoomUseCase.java[Implementierung] des Anwendungsfalles 'Room create' setzt die Anforderung der Fachlichkeit um.
+Und zwar genau diese, die an das Erstellen von Zimmern gestellt werden.
+Er darf durch die Domäne definierte getriebene Ports nutzen, die später von Adaptern außerhalb der Domäne implementiert werden müssen.
+Ein Beispiel eines getriebenen Ports ist das https://github.com/czwie01/hotel-manager/blob/master/backend/src/main/java/hotelmanager/rooms/domain/repository/RoomRepository.java[Repository], das bspw. durch den Room-Persistence-Adapter implementiert wird.
