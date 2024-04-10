@@ -195,5 +195,8 @@ button {
     width: 300px;
     height: 600px;
   }
+  button {
+    width: 150px;
+  }
 }
 </style>
