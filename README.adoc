@@ -6,8 +6,8 @@ Das Projekt wird nach dem Prinzip der https://herbertograca.com/2017/11/16/expli
 Im besten Fall findet die Entwicklung anwendungsfall-getrieben statt.
 Die folgende Abbildung zeigt ein Beispiel.
 
-image:readme/backend-hexagon.png[]
-
+image:https://github.com/czwie01/hotel-manager/blob/develop/docs/backend-hexagon.png[]
+docs
 ==== Room-Rest-Adapter
 
 Dieser https://github.com/czwie01/hotel-manager/blob/master/backend/src/main/java/hotelmanager/rooms/adapters/rest/RoomRestAdapter.java[Adapter] stellt eine RESTlike-Schnittstelle nach außen bereit und nutzt die Anwendungsfälle, die durch den Domänenkern bereitgestellt werden.
