@@ -1,5 +1,6 @@
 package rooms.application.driving.usecases;
 
+import rooms.application.driving.DrivingAdapter;
 import rooms.application.driving.commands.UpdateRoomTypeCommand;
 import rooms.application.driving.exceptions.RoomNotFoundException;
 import rooms.domain.driven.RoomEventPublisher;
@@ -9,6 +10,7 @@ import rooms.domain.model.RoomNumber;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
+@DrivingAdapter
 @RequiredArgsConstructor
 public class UpdateRoomTypeUseCase {
 

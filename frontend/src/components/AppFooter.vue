@@ -40,6 +40,7 @@ export default {
     max-width: 90vw;
     &__trademark-text {
       white-space: nowrap;
+      font-weight: bold;
     }
     &__links {
       display: flex;
@@ -48,6 +49,7 @@ export default {
       gap: 2.5rem;
       justify-content: space-between;
       text-decoration: none;
+      font-weight: bold;
 
       :hover {
         color: var(--clr-light);

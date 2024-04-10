@@ -1,5 +1,11 @@
 import { defineStore } from "pinia";
-import { CreateRoomPayload, Room, RoomState, RoomType } from "@/types";
+import {
+  CreateRoomPayload,
+  Room,
+  RoomState,
+  RoomType,
+  UpdateRoomPayload,
+} from "@/types";
 import { useRoomService } from "@/services/roomService";
 
 export const useRoomStore = defineStore({
@@ -15,8 +21,7 @@ export const useRoomStore = defineStore({
   },
   actions: {
     async fetchRooms() {
-      const roomService = useRoomService();
-      const rooms: Room[] | null = await roomService.fetchRooms();
+      const rooms: Room[] | null = await useRoomService().fetchRooms();
       if (rooms) {
         this.rooms = rooms;
       } else {
@@ -25,16 +30,25 @@ export const useRoomStore = defineStore({
       }
     },
     async createRoom(payload: CreateRoomPayload) {
-      const roomService = useRoomService();
-      const newRoom: Room | null = await roomService.createRoom(payload);
+      const newRoom: Room | null = await useRoomService().createRoom(payload);
       if (newRoom) {
         this.rooms.push(newRoom);
       }
       // Else, handle the failure (potentially inform the user through UI)
     },
+    async updateRoom(payload: UpdateRoomPayload) {
+      useRoomService().updateRoom(payload);
+      const room: Room | undefined = this.rooms.find(
+        (room) => room.roomNumber === payload.roomNumber,
+      );
+      if (room) {
+        room.roomType = payload.roomType;
+        room.hasMiniBar = payload.hasMiniBar;
+      }
+    },
+
     async addMiniBarToRoom(roomNumber: number) {
-      const roomService = useRoomService();
-      await roomService.addMiniBarToRoom(roomNumber);
+      await useRoomService().addMiniBarToRoom(roomNumber);
       // After successful API call, update the state as necessary
       const room: Room | undefined = this.rooms.find(
         (room) => room.roomNumber === roomNumber,
@@ -42,8 +56,7 @@ export const useRoomStore = defineStore({
       if (room) room.hasMiniBar = true;
     },
     async removeMiniBarFromRoom(roomNumber: number) {
-      const roomService = useRoomService();
-      await roomService.removeMiniBarFromRoom(roomNumber);
+      await useRoomService().removeMiniBarFromRoom(roomNumber);
       // Update the state
       const room: Room | undefined = this.rooms.find(
         (room) => room.roomNumber === roomNumber,
@@ -51,19 +64,17 @@ export const useRoomStore = defineStore({
       if (room) room.hasMiniBar = false;
     },
     async removeRoom(roomNumber: number) {
-      const roomService = useRoomService();
-      await roomService.removeRoom(roomNumber);
+      await useRoomService().removeRoom(roomNumber);
       // Update the state to reflect the room removal
       this.rooms = this.rooms.filter((room) => room.roomNumber !== roomNumber);
     },
     async updateRoomType(roomNumber: number, newType: RoomType) {
-      const roomService = useRoomService();
-      await roomService.updateRoomType(roomNumber, { newType });
+      await useRoomService().updateRoomType(roomNumber, { newType });
       // Update the state
       const room: Room | undefined = this.rooms.find(
         (room) => room.roomNumber === roomNumber,
       );
-      if (room) room.type = newType;
+      if (room) room.roomType = newType;
     },
   },
 });

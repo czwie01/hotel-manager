@@ -1,7 +1,12 @@
 import axios from "axios";
-import { Room, CreateRoomPayload, UpdateRoomTypePayload } from "@/types"; // Define these types according to your needs
+import {
+  Room,
+  CreateRoomPayload,
+  UpdateRoomTypePayload,
+  UpdateRoomPayload,
+} from "@/types"; // Define these types according to your needs
 
-const baseUrl = "http://localhost:4200/rooms";
+const baseUrl = "http://localhost:8081/rooms";
 
 export function useRoomService() {
   const fetchRooms = async (): Promise<Room[] | null> => {
@@ -28,7 +33,14 @@ export function useRoomService() {
     }
   };
 
-  // The rest of your service methods with similar error handling...
+  const updateRoom = async (payload: UpdateRoomPayload): Promise<void> => {
+    try {
+      await axios.put(`${baseUrl}/updateRoom`, payload);
+    } catch (error) {
+      console.error("Failed to update room:", error);
+      // Handle the error appropriately, perhaps by informing the user through the UI
+    }
+  };
 
   const addMiniBarToRoom = async (roomNumber: number): Promise<void> => {
     try {
@@ -79,5 +91,6 @@ export function useRoomService() {
     removeMiniBarFromRoom,
     removeRoom,
     updateRoomType,
+    updateRoom,
   };
 }

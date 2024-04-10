@@ -2,7 +2,7 @@
   <nav class="app-navigation">
     <ul>
       <li>
-        <router-link to="/main" class="nav-item">Rooms</router-link>
+        <router-link to="/main/rooms" class="nav-item">Rooms</router-link>
       </li>
     </ul>
   </nav>
@@ -24,7 +24,6 @@ export default defineComponent({
   margin: 0;
   display: flex;
 }
-
 .nav-item {
   margin: 1rem; /* Adjust spacing according to your design */
   text-decoration: none;
@@ -33,6 +32,6 @@ export default defineComponent({
 }
 
 .nav-item.router-link-exact-active {
-  color: var(--clr-red); /* Active link color, adjust if needed */
+  color: var(--clr-light); /* Active link color, adjust if needed */
 }
 </style>

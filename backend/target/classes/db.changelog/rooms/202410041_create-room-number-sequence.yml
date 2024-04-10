@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-room-number-sequence
+      author: your_name
+      changes:
+        - createSequence:
+            sequenceName: rooms_id_seq
+            startValue: 1000
+            incrementBy: 1
+            schemaName: public

@@ -21,14 +21,15 @@ import rooms.application.driving.commands.AddMiniBarToRoomCommand;
 import rooms.application.driving.commands.CreateRoomCommand;
 import rooms.application.driving.commands.RemoveMiniBarFromRoomCommand;
 import rooms.application.driving.commands.RemoveRoomCommand;
+import rooms.application.driving.commands.UpdateRoomCommand;
 import rooms.application.driving.usecases.AddMiniBarToRoomUseCase;
 import rooms.application.driving.usecases.CreateRoomUseCase;
 import rooms.application.driving.usecases.ListRoomsUseCase;
 import rooms.application.driving.usecases.RemoveMiniBarFromRoomUseCase;
 import rooms.application.driving.usecases.RemoveRoomUseCase;
+import rooms.application.driving.usecases.UpdateRoomUseCase;
 import rooms.domain.model.Room;
 import rooms.domain.model.RoomNumber;
-import rooms.domain.model.RoomType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -46,6 +47,7 @@ public class RoomRestAdapter {
     private final AddMiniBarToRoomUseCase addMiniBarToRoomUseCase;
     private final RemoveMiniBarFromRoomUseCase removeMiniBarFromRoomUseCase;
     private final ListRoomsUseCase listRoomsUseCase;
+    private final UpdateRoomUseCase updateRoomUseCase;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -64,10 +66,29 @@ public class RoomRestAdapter {
 
     private CreateRoomCommand fromCreateRoomMessage(@Valid CreateRoomMessage createRoomMessage) {
         return CreateRoomCommand.builder()
-                .type(RoomType.valueOf(createRoomMessage.roomType().toUpperCase()))
+                .type(createRoomMessage.roomType())
                 .hasMiniBar(createRoomMessage.hasMiniBar())
                 .build();
 
+    }
+
+    @PutMapping("/updateRoom")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(tags = "rooms", summary = "Zimmer aktualisieren", description = "Aktualisiert den Zustand eines Zimmers.", responses = {
+            @ApiResponse(responseCode = "200", description = "Zimmer wurde erfolgreich aktualisert"),
+            @ApiResponse(responseCode = BadRequestApiResponse.CODE, description = BadRequestApiResponse.MESSAGE, content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ProblemDetail.class))),
+    })
+    void updateRoom(
+        @Valid @RequestBody UpdateRoomMessage updateRoomMessage) {
+                updateRoomUseCase.updateRoom(fromUpdateRoomMessage(updateRoomMessage));
+    }
+
+    private UpdateRoomCommand fromUpdateRoomMessage(@Valid UpdateRoomMessage updateRoomMessage) {
+        return UpdateRoomCommand.builder()
+        .roomNumber(new RoomNumber(updateRoomMessage.roomNumber()))
+        .type(updateRoomMessage.roomType())
+        .hasMiniBar(updateRoomMessage.hasMiniBar())
+        .build();
     }
 
     @PutMapping("/addMiniBar/{roomNumber}")

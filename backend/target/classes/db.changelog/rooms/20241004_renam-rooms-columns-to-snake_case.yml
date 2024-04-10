@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: rename-rooms-columns-to-snake_case
+      author: your_name_here
+      changes:
+        - renameColumn:
+            tableName: rooms
+            oldColumnName: roomNumber
+            newColumnName: room_number
+            columnDataType: serial
+        - renameColumn:
+            tableName: rooms
+            oldColumnName: roomType
+            newColumnName: room_type
+            columnDataType: text
+        - renameColumn:
+            tableName: rooms
+            oldColumnName: hasMiniBar
+            newColumnName: has_mini_bar
+            columnDataType: boolean

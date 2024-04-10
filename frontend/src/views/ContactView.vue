@@ -3,7 +3,6 @@
     <div class="contact-card">
       <h1>Contact Us</h1>
       <div class="contact-info">
-        <h2>Hotel</h2>
         <p>
           If you have any questions or just want to say hello, feel free to
           reach out to us!
@@ -53,7 +52,7 @@ export default defineComponent({
 }
 
 .contact-card {
-  background: var(--clr-red);
+  background: var(--clr-accent);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 2, 0.3);
   overflow: hidden;
@@ -63,7 +62,7 @@ export default defineComponent({
   margin: 20px;
 
   h1 {
-    color: var(--clr-accent);
+    color: var(--clr-light);
     margin-bottom: 10px;
   }
 
@@ -82,10 +81,21 @@ export default defineComponent({
 
       p {
         margin: 0;
-        color: var(--clr-accent);
+        color: var(--clr-light);
         text-align: left;
       }
     }
   }
+}
+.icon {
+  filter: invert(1);
+}
+
+p {
+  color: var(--clr-light);
+}
+
+h2 {
+  color: var(--clr-light);
 }
 </style>

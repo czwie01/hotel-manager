@@ -22,7 +22,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .main-layout {
   display: flex;
   flex-direction: column;
@@ -37,7 +37,20 @@ export default defineComponent({
     align-items: center;
     align-content: center;
     padding: 1rem 1rem 1rem 1rem;
-    background-color: linear-gradient(to top, #d50c0c, rgb(206, 224, 248));
   }
+}
+.content::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url("@/assets/pictures/homeview-background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  opacity: 0.2; /* Adjust this value to change the transparency */
+  z-index: -2;
 }
 </style>

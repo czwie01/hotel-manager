@@ -16,7 +16,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Navigation from "./AppNavigation.vue";
-import logo from "@/assets/icons/exxelent-nights-logo.svg";
+import logo from "@/assets/logos/exxellent-logo.svg";
 
 export default defineComponent({
   components: {
@@ -45,7 +45,7 @@ export default defineComponent({
     flex-direction: row;
     flex-grow: 1;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     &__logo {
       display: flex;

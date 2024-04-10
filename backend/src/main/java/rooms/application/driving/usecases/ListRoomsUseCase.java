@@ -2,13 +2,13 @@ package rooms.application.driving.usecases;
 
 import java.util.Collection;
 
-import rooms.domain.driven.DrivenAdapter;
+import rooms.application.driving.DrivingAdapter;
 import rooms.domain.driven.RoomRepository;
 import rooms.domain.model.Room;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
-@DrivenAdapter
+@DrivingAdapter
 @RequiredArgsConstructor
 public class ListRoomsUseCase {
     private final RoomRepository roomRepository;

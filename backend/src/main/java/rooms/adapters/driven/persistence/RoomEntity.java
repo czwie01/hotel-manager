@@ -25,7 +25,7 @@ import lombok.Setter;
 public class RoomEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "room_generator")
-    @SequenceGenerator(name = "room_generator", sequenceName = "rooms_id_seq", allocationSize = 10, initialValue = 1_000)
+    @SequenceGenerator(name = "room_generator", sequenceName = "rooms_id_seq", allocationSize = 1, initialValue = 1_000)
     private Long roomNumber;
     @Enumerated(EnumType.STRING)
     private RoomType roomType;

@@ -31,4 +31,4 @@ spring:
 
 rest:
   cors:
-    allowed-origins: 'http://localhost:4200'
+    allowed-origins: http://localhost:5173
